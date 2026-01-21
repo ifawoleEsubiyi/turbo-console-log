@@ -152,7 +152,7 @@ jobs:
 
     - name: Upload coverage reports
       if: matrix.node-version == '22.x' && matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
       continue-on-error: true
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -162,7 +162,7 @@ jobs:
 
     - name: Upload build artifacts
       if: matrix.node-version == '22.x' && matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.5.0
       with:
         name: extension-build
         path: |
@@ -175,7 +175,7 @@ jobs:
 
     - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.5.0
       continue-on-error: true
       with:
         name: test-results-${{ runner.os }}-node${{ matrix.node-version }}
@@ -214,7 +214,7 @@ jobs:
 
     - name: Upload VSIX package
       if: success()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.5.0
       with:
         name: vsix-package
         path: "*.vsix"
