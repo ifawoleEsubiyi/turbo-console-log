@@ -236,7 +236,7 @@ jobs:
         npm install || npm install --legacy-peer-deps
         npm run esbuild-base-minify
 
-    - name: Analyze bundle size
+    - name: Generate bundle size report
       run: |
         echo "## Bundle Size Analysis 📊" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
