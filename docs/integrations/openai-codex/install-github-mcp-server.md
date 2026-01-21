@@ -37,7 +37,7 @@ GITHUB_PAT_TOKEN=ghp_your_token_here
 
 2. Add to .gitignore
 ```bash
-echo -e ".env" >> .gitignore
+echo ".env" >> .gitignore
 ```
 </details>
 
