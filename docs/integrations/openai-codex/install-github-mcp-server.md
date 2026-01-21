@@ -101,9 +101,9 @@ Use the principle of least privilege: add scopes only when a tool request fails 
 
 ## Security Best Practices
 1. Never commit tokens into version control
-3. Rotate tokens periodically
-4. Restrict scopes up front; expand only when required
-5. Remove unused PATs from your GitHub account
+2. Rotate tokens periodically
+3. Restrict scopes up front; expand only when required
+4. Remove unused PATs from your GitHub account
 
 ## References
 - Remote server URL: `https://api.githubcopilot.com/mcp/`
