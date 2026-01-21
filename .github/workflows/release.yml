@@ -33,11 +33,10 @@ jobs:
         node-version: '22.x'
         cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install || npm install --legacy-peer-deps
-
-    - name: Build extension
-      run: npm run vscode:prepublish
+    - name: Install dependencies and build
+      run: |
+        npm install || npm install --legacy-peer-deps
+        npm run vscode:prepublish
 
     - name: Install VSCE
       run: npm install -g @vscode/vsce
@@ -142,11 +141,10 @@ jobs:
         node-version: '22.x'
         cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install || npm install --legacy-peer-deps
-
-    - name: Build extension
-      run: npm run vscode:prepublish
+    - name: Install dependencies and build
+      run: |
+        npm install || npm install --legacy-peer-deps
+        npm run vscode:prepublish
 
     - name: Install VSCE
       run: npm install -g @vscode/vsce
