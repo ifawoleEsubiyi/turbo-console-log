@@ -66,17 +66,19 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         
         if [ -f "out/extension.js" ]; then
-          SIZE=$(stat -c%s "out/extension.js" 2>/dev/null || stat -f%z "out/extension.js" 2>/dev/null)
-          SIZE_KB=$((SIZE / 1024))
-          SIZE_MB=$(echo "scale=2; $SIZE / 1048576" | bc)
-          
-          echo "- **Raw Size:** ${SIZE} bytes" >> $GITHUB_STEP_SUMMARY
-          echo "- **Size (KB):** ${SIZE_KB} KB" >> $GITHUB_STEP_SUMMARY
-          echo "- **Size (MB):** ${SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
-          
-          # Check if size is reasonable
-          if [ $SIZE_KB -gt 5000 ]; then
-            echo "::warning::Bundle size exceeds 5MB - consider optimization"
+          SIZE=$(stat -c%s "out/extension.js" 2>/dev/null || stat -f%z "out/extension.js" 2>/dev/null || echo "0")
+          if [ "$SIZE" != "0" ]; then
+            SIZE_KB=$((SIZE / 1024))
+            SIZE_MB=$(echo "scale=2; $SIZE / 1048576" | bc 2>/dev/null || echo "0")
+            
+            echo "- **Raw Size:** ${SIZE} bytes" >> $GITHUB_STEP_SUMMARY
+            echo "- **Size (KB):** ${SIZE_KB} KB" >> $GITHUB_STEP_SUMMARY
+            echo "- **Size (MB):** ${SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
+            
+            # Check if size is reasonable
+            if [ $SIZE_KB -gt 5000 ]; then
+              echo "::warning::Bundle size exceeds 5MB - consider optimization"
+            fi
           fi
         fi
 
@@ -99,13 +101,18 @@ jobs:
         echo "## 🧮 Code Complexity" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         
-        TS_FILES=$(find src -name "*.ts" | wc -l)
-        TOTAL_LINES=$(find src -name "*.ts" -exec wc -l {} + | tail -1 | awk '{print $1}')
-        AVG_LINES=$(($TOTAL_LINES / $TS_FILES))
-        
-        echo "- **TypeScript Files:** $TS_FILES" >> $GITHUB_STEP_SUMMARY
-        echo "- **Total Lines of Code:** $TOTAL_LINES" >> $GITHUB_STEP_SUMMARY
-        echo "- **Average Lines per File:** $AVG_LINES" >> $GITHUB_STEP_SUMMARY
+        TS_FILES=$(find src -name "*.ts" 2>/dev/null | wc -l)
+        if [ "$TS_FILES" -gt 0 ]; then
+          TOTAL_LINES=$(find src -name "*.ts" -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo "0")
+          AVG_LINES=$(($TOTAL_LINES / $TS_FILES))
+          
+          echo "- **TypeScript Files:** $TS_FILES" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Lines of Code:** $TOTAL_LINES" >> $GITHUB_STEP_SUMMARY
+          echo "- **Average Lines per File:** $AVG_LINES" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **TypeScript Files:** 0" >> $GITHUB_STEP_SUMMARY
+          echo "- No TypeScript files found" >> $GITHUB_STEP_SUMMARY
+        fi
 
     - name: Memory usage analysis
       run: |

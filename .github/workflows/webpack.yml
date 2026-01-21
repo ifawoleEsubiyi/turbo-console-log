@@ -47,9 +47,8 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: |
-        # Handle local dependency gracefully
-        npm install || npm install --legacy-peer-deps || true
+      run: npm install || npm install --legacy-peer-deps
+      continue-on-error: true
         
     - name: Run TypeScript compiler check
       run: npm run lint || npx tsc --noEmit || true
@@ -165,7 +164,7 @@ jobs:
       if: matrix.node-version == '22.x' && matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: extension-build-${{ matrix.os }}-node-${{ matrix.node-version }}
+        name: extension-build
         path: |
           out/
           package.json
@@ -179,7 +178,7 @@ jobs:
       uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
-        name: test-results-${{ matrix.os }}-node-${{ matrix.node-version }}
+        name: test-results-${{ runner.os }}-node${{ matrix.node-version }}
         path: |
           coverage/
           *.log
@@ -247,10 +246,12 @@ jobs:
         echo "## Bundle Size Analysis 📊" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         if [ -f "out/extension.js" ]; then
-          SIZE=$(stat -f%z "out/extension.js" 2>/dev/null || stat -c%s "out/extension.js" 2>/dev/null)
-          SIZE_KB=$((SIZE / 1024))
-          echo "- **Bundle Size:** ${SIZE_KB} KB" >> $GITHUB_STEP_SUMMARY
-          echo "- **File:** out/extension.js" >> $GITHUB_STEP_SUMMARY
+          SIZE=$(stat -c%s "out/extension.js" 2>/dev/null || stat -f%z "out/extension.js" 2>/dev/null || echo "0")
+          if [ "$SIZE" != "0" ]; then
+            SIZE_KB=$((SIZE / 1024))
+            echo "- **Bundle Size:** ${SIZE_KB} KB" >> $GITHUB_STEP_SUMMARY
+            echo "- **File:** out/extension.js" >> $GITHUB_STEP_SUMMARY
+          fi
         fi
 
     - name: Count lines of code

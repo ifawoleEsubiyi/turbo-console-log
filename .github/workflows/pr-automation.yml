@@ -95,7 +95,7 @@ jobs:
             - \`npm run esbuild\` - Build the extension
             
             ### Resources
-            - [Contributing Guide](https://github.com/Chakroun-Anas/turbo-console-log/blob/master/CONTRIBUTING.md)
+            - [Contributing Guide](https://github.com/${{ github.repository }}/blob/master/CONTRIBUTING.md)
             - [Documentation](https://www.turboconsolelog.io/documentation)
             
             ---

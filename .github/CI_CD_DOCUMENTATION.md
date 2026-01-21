@@ -143,12 +143,12 @@ Ensures documentation quality and link validity.
 
 ## Workflow Status Badges
 
-Add these badges to your README to show workflow status:
+Add these badges to your README to show workflow status (replace OWNER/REPO with your repository):
 
 ```markdown
-![CI/CD Pipeline](https://github.com/ifawoleEsubiyi/turbo-console-log/workflows/CI%2FCD%20Pipeline/badge.svg)
-![CodeQL](https://github.com/ifawoleEsubiyi/turbo-console-log/workflows/CodeQL%20Security%20Analysis/badge.svg)
-![Performance](https://github.com/ifawoleEsubiyi/turbo-console-log/workflows/Performance%20Benchmarks/badge.svg)
+![CI/CD Pipeline](https://github.com/OWNER/REPO/workflows/CI%2FCD%20Pipeline/badge.svg)
+![CodeQL](https://github.com/OWNER/REPO/workflows/CodeQL%20Security%20Analysis/badge.svg)
+![Performance](https://github.com/OWNER/REPO/workflows/Performance%20Benchmarks/badge.svg)
 ```
 
 ## Manual Triggers

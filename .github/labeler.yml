@@ -1,22 +1,44 @@
-version: 2
+# PR Labeler Configuration
+# Automatically label PRs based on changed files
 
-updates:
-  # Update GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "github-actions"
+# Source code changes
+src:
+  - 'src/**/*.ts'
+  - 'src/**/*.js'
 
-  # Update npm dependencies  
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-    versioning-strategy: increase
+# Test changes
+tests:
+  - 'src/**/*.test.ts'
+  - 'src/**/*.spec.ts'
+  - 'src/jest-tests/**'
+  - 'src/mocha-tests/**'
+
+# Configuration changes
+configuration:
+  - '*.json'
+  - '*.yml'
+  - '*.yaml'
+  - '.github/**'
+  - 'tsconfig.json'
+  - 'package.json'
+
+# Documentation changes
+documentation:
+  - '*.md'
+  - 'docs/**'
+
+# CI/CD changes
+ci:
+  - '.github/workflows/**'
+  - '.github/actions/**'
+
+# Dependencies
+dependencies:
+  - 'package.json'
+  - 'package-lock.json'
+
+# Build changes
+build:
+  - 'webpack.config.js'
+  - 'esbuild.config.js'
+  - 'tsconfig.json'
