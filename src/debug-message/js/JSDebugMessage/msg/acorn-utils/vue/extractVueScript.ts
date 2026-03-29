@@ -16,7 +16,7 @@ export function extractVueScript(
   byteOffset: number;
 } | null {
   // Find all script tags with their positions
-  const scriptTagRegex = /<script[^>]*>([\s\S]*?)<\/script>/gi;
+  const scriptTagRegex = /<script[^>]*>([\s\S]*?)<\/script\s*>/gi;
   const allMatches: Array<{
     fullMatch: string;
     scriptContent: string;
