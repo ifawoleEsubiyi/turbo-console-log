@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Lint Markdown files
       uses: articulate/actions-markdownlint@v1
@@ -50,7 +50,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Check links in Markdown files
       uses: gaurav-nelson/github-action-markdown-link-check@v1
@@ -75,7 +75,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Check spelling
       uses: rojopolis/spellcheck-github-actions@0.36.0
